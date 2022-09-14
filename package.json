@@ -1,0 +1,32 @@
+{
+    "name": "autotest",
+    "version": "x.0.0",
+    "description": "Automated tests for * made with ts-jest and Selenium WebdriverJS",
+    "author": "*",
+    "license": "ISC",
+    "dependencies": {
+        "@types/jest": "^27.0.3",
+        "@types/node-fetch": "2.5.12",
+        "@types/selenium-webdriver": "^4.0.16",
+        "@typescript-eslint/eslint-plugin": "^5.36.1",
+        "@typescript-eslint/parser": "^5.0.0",
+        "eslint": "^8.23.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-unused-imports": "^2.0.0",
+        "jest": "^27.4.3",
+        "node-fetch": "^2.6.7",
+        "prettier": "^2.7.1",
+        "selenium-webdriver": "^4.1.0",
+        "ts-jest": "^27.0.7",
+        "typescript": "^4.5.2"
+    },
+    "scripts": {
+        "lint": "eslint . --ext .ts",
+        "fix": "yarn lint --fix",
+
+        "chrome": "WEBDRIVER=chrome jest",
+        "firefox": "WEBDRIVER=firefox jest",
+        "safari": "WEBDRIVER=safari jest --maxWorkers=1",
+        "edge": "WEBDRIVER=MicrosoftEdge jest"
+    }
+}

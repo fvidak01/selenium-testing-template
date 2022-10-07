@@ -35,7 +35,7 @@ Go to the bottom if you want to run tests without setting up anything, just havi
 ```bash
 yarn init
 yarn add jest selenium-webdriver typescript ts-jest node-fetch
-yarn add @types/jest @types/selenium-webdriver @types/node-fetch
+yarn add @types/jest @types/selenium-webdriver @types/node-fetch cross-env
 yarn add eslint eslint-config-prettier eslint-plugin-unused-imports prettier
 yarn add @typescript-eslint/eslint-plugin @typescript-eslint/parser
 npx jest --init

@@ -10,6 +10,7 @@
         "@types/selenium-webdriver": "^4.1.5",
         "@typescript-eslint/eslint-plugin": "^5.37.0",
         "@typescript-eslint/parser": "^5.37.0",
+        "cross-env": "^7.0.3",
         "eslint": "^8.23.1",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-unused-imports": "^2.0.0",
@@ -24,9 +25,9 @@
         "lint": "eslint . --ext .ts",
         "fix": "yarn lint --fix",
 
-        "chrome": "WEBDRIVER=chrome jest",
-        "firefox": "WEBDRIVER=firefox jest",
-        "safari": "WEBDRIVER=safari jest --maxWorkers=1",
-        "edge": "WEBDRIVER=MicrosoftEdge jest"
+        "chrome": "cross-env WEBDRIVER=chrome jest",
+        "firefox": "cross-env WEBDRIVER=firefox jest",
+        "safari": "cross-env WEBDRIVER=safari jest --maxWorkers=1",
+        "edge": "cross-env WEBDRIVER=MicrosoftEdge jest"
     }
 }

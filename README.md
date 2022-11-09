@@ -150,7 +150,7 @@ ENVIRO=http://dev. WEBDRIVER=safari yarn jest --maxWorkers=1 partOfANameOfTest(s
 -   Set ENVIRO to whichever instance you want to test. `package.json` has examples.
 -   Set WEBDRIVER to whichever node you deployed.
 -   Set UI="headless".
--   Add --maxWorkers=`number` flag when running tests. `number` indicated number of worker nodes you set up. Less than maximum if you want more stable tests (claim is unproven (but tested), in theory it _might_ be like that). Testing says that when they start failing do to setup, just a few will fail and not pull down your whole testrun.
+-   Add --maxWorkers=`number` flag when running tests. `number` indicates number of worker nodes you set up. Less than maximum if you want more stable tests (claim is unproven (but tested), in theory it _might_ be like that). Testing says that when they start failing do to setup, just a few will fail and not pull down your whole testrun.
 
 ```zsh
 yarn jest --maxWorkers=4 partOfANameOfTest(s)(suites)

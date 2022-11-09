@@ -60,22 +60,6 @@ yarn
 
 <br>
 
-### QUALITY OF LIFE FOR RUNNING TESTS ON WINDOWS
-
-Create `.jest/setEnvVars.js`
-
-> or comment out `setupFiles` line in `jest.config.js` if you aren't using Windows
-
-For example, add the following if you don't want to set envs on each terminal start:
-
-```javascript
-process.env.ENVIRO = "https://";
-process.env.WEBDRIVER = "firefox";
-process.env.UI = "headless";
-```
-
-<br>
-
 ### HOW TO RUN TESTS
 
 #### Required envs

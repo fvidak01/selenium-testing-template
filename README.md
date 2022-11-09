@@ -6,7 +6,7 @@ Go to the bottom if you want to run tests without setting up anything, just havi
 
 -   have browsers you want to test on installed
 -   have browser webdrivers in `$PATH` for browsers you want to test
--   I'm using node v16.13.2, not sure how will it work on v17. Tried it once, broke everything. Stick to v16 if you don't care about changes in v17.
+-   I'm using node v16.17.0, not sure how will it work on v17. Tried it once, broke everything. Stick to v16 if you don't care about changes in v17.
 
 **WebDrivers:**
 

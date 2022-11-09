@@ -106,14 +106,6 @@ yarn
 
 #### Windows10 Powershell: production, chrome, headless, default binaries, local
 
-In `.jest/setEnvVars.js` add
-
-```javascript
-process.env.ENVIRO = "https://";
-process.env.WEBDRIVER = "chrome";
-process.env.UI = "headless";
-```
-
 ```PowerShell
 yarn jest partOfANameOfTest(s)(suites)
 ```

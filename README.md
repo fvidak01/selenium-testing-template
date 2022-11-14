@@ -6,7 +6,7 @@ Go to the bottom if you want to run tests without setting up anything, just havi
 
 -   have browsers you want to test on installed
 -   have browser webdrivers in `$PATH` for browsers you want to test
--   I'm using node v16.13.2, not sure how will it work on v17. Tried it once, broke everything. Stick to v16 if you don't care about changes in v17.
+-   I'm using node v16.17.0, not sure how will it work on v17. Tried it once, broke everything. Stick to v16 if you don't care about changes in v17.
 
 **WebDrivers:**
 
@@ -60,22 +60,6 @@ yarn
 
 <br>
 
-### QUALITY OF LIFE FOR RUNNING TESTS ON WINDOWS
-
-Create `.jest/setEnvVars.js`
-
-> or comment out `setupFiles` line in `jest.config.js` if you aren't using Windows
-
-For example, add the following if you don't want to set envs on each terminal start:
-
-```javascript
-process.env.ENVIRO = "https://";
-process.env.WEBDRIVER = "firefox";
-process.env.UI = "headless";
-```
-
-<br>
-
 ### HOW TO RUN TESTS
 
 #### Required envs
@@ -122,14 +106,6 @@ process.env.UI = "headless";
 
 #### Windows10 Powershell: production, chrome, headless, default binaries, local
 
-In `.jest/setEnvVars.js` add
-
-```javascript
-process.env.ENVIRO = "https://";
-process.env.WEBDRIVER = "chrome";
-process.env.UI = "headless";
-```
-
 ```PowerShell
 yarn jest partOfANameOfTest(s)(suites)
 ```
@@ -174,7 +150,7 @@ ENVIRO=http://dev. WEBDRIVER=safari yarn jest --maxWorkers=1 partOfANameOfTest(s
 -   Set ENVIRO to whichever instance you want to test. `package.json` has examples.
 -   Set WEBDRIVER to whichever node you deployed.
 -   Set UI="headless".
--   Add --maxWorkers=`number` flag when running tests. `number` indicated number of worker nodes you set up. Less than maximum if you want more stable tests (claim is unproven (but tested), in theory it _might_ be like that). Testing says that when they start failing do to setup, just a few will fail and not pull down your whole testrun.
+-   Add --maxWorkers=`number` flag when running tests. `number` indicates number of worker nodes you set up. Less than maximum if you want more stable tests (claim is unproven (but tested), in theory it _might_ be like that). Testing says that when they start failing do to setup, just a few will fail and not pull down your whole testrun.
 
 ```zsh
 yarn jest --maxWorkers=4 partOfANameOfTest(s)(suites)

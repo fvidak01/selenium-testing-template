@@ -104,6 +104,7 @@ module.exports = {
         "helpers/(.*)": "<rootDir>/helperScripts/$1",
         "utilities/(.*)": "<rootDir>/utils/$1",
         "data/(.*)": "<rootDir>/data/$1",
+        getElBy: "<rootDir>/utils/getElBy.ts",
     },
     // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths /*, { prefix: '<rootDir>/' } */ ),
 

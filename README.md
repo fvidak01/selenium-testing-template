@@ -138,18 +138,18 @@ Create eslint and prettier config files as you want. Or just copy them from some
 
 ### Examples
 
-#### Windows10 Powershell: production, chrome, headless, default binaries, local
+#### Windows10 Powershell: dev, chrome, headless, default binaries, local, 3 instances
 
 ```PowerShell
-npm run jest partOfANameOfTest(s)(suites)
+npm run ch3dev partOfANameOfTest(s)(suites)
 ```
 
 <br>
 
-#### MacOS zsh: dev, Microsoft Edge, local, headless, default binaries
+#### MacOS zsh: production, Microsoft Edge, local, headless, default binaries, 3 instances
 
 ```zsh
-ENVIRO=https://dev. WEBDRIVER=MicrosoftEdge UI=headless npm run jest
+npm run meh3 partOfANameOfTest(s)(suites)
 ```
 
 <br>
@@ -164,13 +164,7 @@ Safari is special:
 so for Safari it's:
 
 ```zsh
-ENVIRO=http://dev. npm run safari partOfANameOfTest(s)(suites)
-```
-
-<br> **OR** <br>
-
-```zsh
-ENVIRO=http://dev. WEBDRIVER=safari npm run jest --maxWorkers=1 partOfANameOfTest(s)(suites)
+sfgdev partOfANameOfTest(s)(suites)
 ```
 
 <br>

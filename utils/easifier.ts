@@ -81,7 +81,7 @@ export async function IsButtonEnabled(driver: WebDriver, ttl: number, buttonID: 
  * Moves a cursor from origin element by x,y pixels
  * @param driver
  * @param originElement element where cursor is at beginning
- * @param x pixels to move to horizontally
+ * @param x pixels to move horizontally
  * @param y pixel to move vertically
  * @returns void
  */

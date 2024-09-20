@@ -116,7 +116,7 @@ Create eslint and prettier config files as you want. Or just copy them from some
 -   BINARIES
 
     -   defaults to nothing, which looks for default install location for used OS (ProgramFiles(and x86) for Windows or Applications for MacOS)
-    -   `custom` uses path in builder.ts, requires setting up
+    -   `custom` uses path in defaultEnvs.ts, requires setting up
 
 -   UI
 

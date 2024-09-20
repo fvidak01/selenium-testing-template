@@ -111,7 +111,7 @@ Create eslint and prettier config files as you want. Or just copy them from some
 -   LOCATION
 
     -   defaults to nothing, which runs tests locally
-    -   `remote` uses link in builder.ts, requires setting up
+    -   `remote` uses link in defaultEnvs.ts, requires setting up
 
 -   BINARIES
 

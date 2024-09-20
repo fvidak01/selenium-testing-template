@@ -1,15 +1,26 @@
 import fetch from "node-fetch";
 
-import { WebDriver, WebElement } from "selenium-webdriver";
+import { until, WebDriver, WebElement } from "selenium-webdriver";
 import GetElBy from "@getElBy";
 
 /**
- * Implicit wait
+ * Implicit wait made with TypeScript Promise functionality. Might work better than Delay2(), might not. Might work quite differently
  * @param ms how long delay lasts in ms
  * @returns void Promise
  */
 export function Delay(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Implicit wait made using Selenium. Might work better than Delay(), might not. Might work quite differently
+ * @param driver WebDriver
+ * @param ms how long delay lasts in ms
+ * @returns void
+ */
+export async function Delay2(driver: WebDriver, ms: number): Promise<void> {
+    await driver.manage().setTimeouts({ implicit: ms });
+    return;
 }
 
 /**
@@ -90,4 +101,36 @@ export async function MoveCursor(
         })
         .perform();
     return new Promise((resolve) => setTimeout(resolve));
+}
+
+/**
+ * Checks if targeted element is visible
+ * @param driver WebDriver
+ * @param ttl time-to-live in ms
+ * @param element element we are checking for visibility
+ * @returns true if visible, false if not
+ */
+export async function IsVisible(driver: WebDriver, ttl: number, element: WebElement): Promise<boolean> {
+    try {
+        await driver.wait(until.elementIsVisible(element), ttl);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Checks if targeted element is not visible
+ * @param driver WebDriver
+ * @param ttl time-to-live in ms
+ * @param element element we are checking for visibility
+ * @returns true if visible, false if not
+ */
+export async function IsNotVisible(driver: WebDriver, ttl: number, element: WebElement): Promise<boolean> {
+    try {
+        await driver.wait(until.elementIsNotVisible(element), ttl);
+        return true;
+    } catch {
+        return false;
+    }
 }

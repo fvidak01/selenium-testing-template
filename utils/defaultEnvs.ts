@@ -1,4 +1,8 @@
+const ENVIRONMENT_SUBDOMAIN: string = process.env.ENVIRO;
+
 //**Used in builder.ts */
+export const ENV_ADDRESS: string = ENVIRONMENT_SUBDOMAIN + "domain.tld"; // =https://*, preceding part of the address
+
 // Address of a grid router
 export const ENV_GRID_ROUTER_ADDRESS: string = process.env.ROUTER_ADDR; // =routerURL, URL of a Selenium router
 
@@ -12,13 +16,23 @@ export const ENV_BINARIES: string = process.env.BINARIES; // =custom, used if cu
 export const ENV_LOCATION: string = process.env.LOCATION; // =remote, used if tests should be run on remote runner
 export const ENV_UI: string = process.env.UI; // =headless, used if browsers should be run in headless mode
 
-export const ENV_MOBILE_SIZE: { width: number; height: number } = { width: 425, height: 812 };
-export const ENV_DESKTOP_SIZE: { width: number; height: number } = { width: 1440, height: 900 };
-
 /** Used in tests */
-const TESTING_SITE: string = "";
-export const ENV_ADDRESS: string = process.env.ENVIRO + TESTING_SITE; // =https://*, preceding part of the address
+export const ENV_ENVIRONMENT: string =
+    ENVIRONMENT_SUBDOMAIN === "https://"
+        ? "prod"
+        : ENVIRONMENT_SUBDOMAIN === "https://qa."
+        ? "qa"
+        : ENVIRONMENT_SUBDOMAIN === "https://test."
+        ? "test"
+        : "dev";
 
-export const ENV_TIMEOUT: number = +process.env.TIMEOUT || 1000 * 60; // in ms
+export enum ALL_ENVIRONMENTS {
+    PROD = "prod",
+    QA = "qa",
+    DEV = "dev",
+    TEST = "test",
+}
+
+export const ENV_TIMEOUT: number = +process.env.TIMEOUT || 1000 * 75; // in ms
 export const ENV_BROWSERDRIVER: string = process.env.WEBDRIVER;
-export const ENV_TIMETOLIVE: number = +process.env.TIMETOLIVE || 1000 * 30; // in ms
+export const ENV_TIMETOLIVE: number = +process.env.TIMETOLIVE || 1000 * 25; // in ms

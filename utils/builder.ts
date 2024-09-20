@@ -4,21 +4,21 @@ import { Options as firefoxOptions } from "selenium-webdriver/firefox";
 import {
     ENV_BINARIES,
     ENV_CHROME_BINARIES_PATH,
-    ENV_DESKTOP_SIZE,
     ENV_EDGE_BINARIES_PATH,
     ENV_FIREFOX_BINARIES_PATH,
     ENV_GRID_ROUTER_ADDRESS,
     ENV_LOCATION,
-    ENV_MOBILE_SIZE,
     ENV_UI,
 } from "@utilities/defaultEnvs";
 
 // @ts-ignore
 const edge = require("selenium-webdriver/edge");
-const WIDTH_MOBILE: number = ENV_MOBILE_SIZE.width;
-const HEIGHT_MOBILE: number = ENV_MOBILE_SIZE.height;
-const WIDTH_DESKTOP: number = ENV_DESKTOP_SIZE.width;
-const HEIGHT_DESKTOP: number = ENV_DESKTOP_SIZE.height;
+const WIDTH_MOBILE: number = 425;
+const HEIGHT_MOBILE: number = 812;
+const WIDTH_DESKTOP: number = 1440;
+const HEIGHT_DESKTOP: number = 900;
+const WIDTH_INBETWEEN: number = 1024;
+const HEIGHT_INBETWEEN: number = 1024;
 
 /**
  * Sets WebDriver options and creates WebDriver instance
@@ -66,6 +66,8 @@ function BuildSafariDriver(
         safariDriver.manage().window().setRect({ width: WIDTH_MOBILE, height: HEIGHT_MOBILE });
     else if (size === "desktop")
         safariDriver.manage().window().setRect({ width: WIDTH_DESKTOP, height: HEIGHT_DESKTOP });
+    else if (size === "inbetween")
+        safariDriver.manage().window().setRect({ width: WIDTH_INBETWEEN, height: HEIGHT_INBETWEEN });
 
     return safariDriver;
 }
@@ -79,14 +81,17 @@ function BuildChromeDriver(size: string, UI: string, binaries: string, location:
     const chromeSettings = new chromeOptions();
     // On Windows, chromedriver prints whole console log to powershell terminal, this only prints fatal errors.
     // Couldn't find a way to disable it completely with JS bindings.
-    chromeSettings.addArguments("--log-level=3");
+    chromeSettings.addArguments("--deny-permission-prompts");
+    chromeSettings.excludeSwitches("enable-logging");
 
-    if (UI === "headless") chromeSettings.headless();
+    if (UI === "headless") chromeSettings.addArguments("--headless=new");
 
     if (binaries === "custom") chromeSettings.setChromeBinaryPath(ENV_CHROME_BINARIES_PATH);
 
     if (size === "mobile") chromeSettings.windowSize({ width: WIDTH_MOBILE, height: HEIGHT_MOBILE });
     else if (size === "desktop") chromeSettings.windowSize({ width: WIDTH_DESKTOP, height: HEIGHT_DESKTOP });
+    else if (size === "inbetween")
+        chromeSettings.windowSize({ width: WIDTH_INBETWEEN, height: HEIGHT_INBETWEEN });
 
     if (location === "remote")
         return new Builder()
@@ -106,14 +111,17 @@ function BuildEdgeDriver(size: string, UI: string, binaries: string, location: s
     const edgeSettings = new edge.Options();
     // On Windows, edgedriver prints whole console log to powershell terminal, this only prints fatal errors.
     // Couldn't find a way to disable it completely with JS bindings.
-    edgeSettings.addArguments("--log-level=3");
+    edgeSettings.addArguments("--deny-permission-prompts");
+    edgeSettings.excludeSwitches("enable-logging");
 
-    if (UI === "headless") edgeSettings.headless();
+    if (UI === "headless") edgeSettings.addArguments("--headless=new");
 
     if (binaries === "custom") edgeSettings.setBinaryPath(ENV_EDGE_BINARIES_PATH);
 
     if (size === "mobile") edgeSettings.windowSize({ width: WIDTH_MOBILE, height: HEIGHT_MOBILE });
     else if (size === "desktop") edgeSettings.windowSize({ width: WIDTH_DESKTOP, height: HEIGHT_DESKTOP });
+    else if (size === "inbetween")
+        edgeSettings.windowSize({ width: WIDTH_INBETWEEN, height: HEIGHT_INBETWEEN });
 
     if (location === "remote")
         return new Builder()
@@ -145,6 +153,8 @@ function BuildFirefoxDriver(size: string, UI: string, binaries: string, location
         firefoxDriver.manage().window().setRect({ width: WIDTH_MOBILE, height: HEIGHT_MOBILE });
     else if (UI !== "headless" && size === "desktop")
         firefoxDriver.manage().window().setRect({ width: WIDTH_DESKTOP, height: HEIGHT_DESKTOP });
+    else if (UI !== "headless" && size === "inbetween")
+        firefoxDriver.manage().window().setRect({ width: WIDTH_INBETWEEN, height: HEIGHT_INBETWEEN });
 
     return firefoxDriver;
 }
@@ -171,6 +181,12 @@ function SetFirefoxSettings(size: string, UI: string, binaries: string): firefox
                     .setBinary(ENV_FIREFOX_BINARIES_PATH)
                     .windowSize({ width: WIDTH_DESKTOP, height: HEIGHT_DESKTOP })
                     .headless();
+            } else if (size === "inbetween") {
+                // custom binaries & headless mode & desktop size
+                firefoxSettings = new firefoxOptions()
+                    .setBinary(ENV_FIREFOX_BINARIES_PATH)
+                    .windowSize({ width: WIDTH_INBETWEEN, height: HEIGHT_INBETWEEN })
+                    .headless();
             } else {
                 // custom binaries & headless mode & default size
                 firefoxSettings = new firefoxOptions().setBinary(ENV_FIREFOX_BINARIES_PATH).headless();
@@ -190,6 +206,11 @@ function SetFirefoxSettings(size: string, UI: string, binaries: string): firefox
                 // default binaries & headless mode & desktop size
                 firefoxSettings = new firefoxOptions()
                     .windowSize({ width: WIDTH_DESKTOP, height: HEIGHT_DESKTOP })
+                    .headless();
+            } else if (size === "inbetween") {
+                // default binaries & headless mode & desktop size
+                firefoxSettings = new firefoxOptions()
+                    .windowSize({ width: WIDTH_INBETWEEN, height: HEIGHT_INBETWEEN })
                     .headless();
             } else {
                 // default binaries & headless mode & default size

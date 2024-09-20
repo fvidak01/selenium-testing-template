@@ -4,3 +4,8 @@ coverage
 .DS_Store
 .env
 .vscode
+.jest/Rubbish
+.jest/desktop.ini
+.jest/.debris
+.jest/Icon
+.jest/icon

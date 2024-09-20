@@ -1,22 +1,51 @@
 # Getting started
 
-Go to the bottom if you want to run tests without setting up anything, just having access to Kubernetes cluster on [Openshift](#openshift).
-
-## DON'T OVERLOOK THIS
+## PREREQUISITES
 
 -   have browsers you want to test on installed
+-   have `npm` installed
+
+> Installing `nvm` <https://github.com/nvm-sh/nvm> first and then using it to install desired `npm` version is easier and more reliable than just installing `npm`.  Plus, more useful in case you end up needing to use more than one `npm` version, which is quite likely to happen. `nvm` installation is on the link above (at the moment of writting it's literally copy and paste to console).
+
+<br>
+
+> You install desired `npm` version with
+
+```bash
+nvm install *version*
+```
+
+> where \*version\* is version you want to install. F.e. 20 will install the latest node v20 while 20.2.1 will install that version specifically. This repository has `.nvmrc` file so you can just use **nvm install** to install expected version. For more `nvm` information, check its GitHub repository.
+
 -   have browser webdrivers in `$PATH` for browsers you want to test
--   I'm using node v16.17.0, not sure how will it work on v17. Tried it once, broke everything. Stick to v16 if you don't care about changes in v17.
+
+> How to add something to `PATH` is different on different OSes. Google how and either move webdriver(s) to some directory already in `PATH` or create new directory where you'll put webdriver(s) and add that directory to `PATH`.
 
 **WebDrivers:**
 
--   Chrome: <https://sites.google.com/chromium.org/driver/>
+-   Chrome: <https://googlechromelabs.github.io/chrome-for-testing>
 -   Firefox: <https://github.com/mozilla/geckodriver/releases>
 -   Safari: in Terminal: safaridriver --enable
--   Edge: <https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/>
+-   Edge: <https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver>
 
 > Pay close attention to the version. Edge and Chrome WebDrivers' versions must be the same as Edge/Chrome browser that is installed.
+> <br>
 > For additional info: <https://www.selenium.dev/downloads/>
+
+<br>
+
+> Test if webdrivers work properly. Open new console or tab and write webdriver's name, f.e. *chromedriver* if you are going to use Chrome. If it says it doesn't exist, OS doesn't see it in `PATH`. Doublecheck if directory where webdrivers are is in `PATH`. Check if webdriver can be run from a directory where you put it. Move webdriver to different directory that is in `PATH`.
+> Restart console completely and try running it again.  
+> If all fails, contact someone who might know their way around `PATH` stuff and/or webdrivers. Nerds who use Linux in Profico are a good bet.
+
+### MacOS troubleshooting
+
+When you run specific driver for the first time, MacOS will block it and suggest to delete it. Don't.
+
+-   Go to (Privacy &) Security settings and scroll down.
+-   Above FileVault section, you'll have an option to Allow or Disallow blocked driver. Allow it.
+-   Try to start it again and you should get different pop-up now. Click on Open or whichever version of OK text is used. Don't press Cancel.
+-   You should be fine now to run tests on MacOS without it blocking you.
 
 <br>
 
@@ -30,14 +59,25 @@ Go to the bottom if you want to run tests without setting up anything, just havi
 
 <br>
 
-### NEW PROJECT (skip 3rd and 4th add if you don't care about linter and formater)
+## SETTING IT UP
+
+### Setting from this template repository
 
 ```bash
-yarn init
-yarn add jest selenium-webdriver typescript ts-jest node-fetch
-yarn add @types/jest @types/selenium-webdriver @types/node-fetch cross-env
-yarn add eslint eslint-config-prettier eslint-plugin-unused-imports prettier
-yarn add @typescript-eslint/eslint-plugin @typescript-eslint/parser
+npm install
+```
+
+### Setting as a new project (skip 3rd and 4th add if you don't care about linter and formater)
+
+This is a minimum setup if you just want jest, selenium-webdriver and typescript to work (with linters and formaters if you want).
+Don't follow this is you already set it up from template repository.
+
+```bash
+npm init
+npm install jest selenium-webdriver typescript ts-jest node-fetch@2.6.7
+npm install @types/jest @types/selenium-webdriver @types/node-fetch cross-env
+npm install eslint eslint-config-prettier eslint-plugin-unused-imports prettier
+npm install @typescript-eslint/eslint-plugin @typescript-eslint/parser
 npx jest --init
 ```
 
@@ -52,12 +92,6 @@ Create eslint and prettier config files as you want. Or just copy them from some
 
 <br>
 
-### SETTING FROM THIS REPOSITORY
-
-```bash
-yarn
-```
-
 <br>
 
 ### HOW TO RUN TESTS
@@ -66,7 +100,7 @@ yarn
 
 -   ENVIRO
 
-> modifies testsite URL, add site URL as `TESTING_SITE` value in `defaultEnvs.ts`
+> modifies testsite URL
 
 -   WEBDRIVER
 
@@ -107,7 +141,7 @@ yarn
 #### Windows10 Powershell: production, chrome, headless, default binaries, local
 
 ```PowerShell
-yarn jest partOfANameOfTest(s)(suites)
+npm run jest partOfANameOfTest(s)(suites)
 ```
 
 <br>
@@ -115,7 +149,7 @@ yarn jest partOfANameOfTest(s)(suites)
 #### MacOS zsh: dev, Microsoft Edge, local, headless, default binaries
 
 ```zsh
-ENVIRO=https://dev. WEBDRIVER=MicrosoftEdge UI=headless yarn jest
+ENVIRO=https://dev. WEBDRIVER=MicrosoftEdge UI=headless npm run jest
 ```
 
 <br>
@@ -130,7 +164,13 @@ Safari is special:
 so for Safari it's:
 
 ```zsh
-ENVIRO=http://dev. WEBDRIVER=safari yarn jest --maxWorkers=1 partOfANameOfTest(s)(suites)
+ENVIRO=http://dev. npm run safari partOfANameOfTest(s)(suites)
+```
+
+<br> **OR** <br>
+
+```zsh
+ENVIRO=http://dev. WEBDRIVER=safari npm run jest --maxWorkers=1 partOfANameOfTest(s)(suites)
 ```
 
 <br>
@@ -138,20 +178,3 @@ ENVIRO=http://dev. WEBDRIVER=safari yarn jest --maxWorkers=1 partOfANameOfTest(s
 > FOR MORE DETAILS ON RUNNING JEST AND THOSE TESTS: <https://jestjs.io/docs/cli>, `package.json` and `defaultEnvs.ts`
 
 <br>
-
-#### <a name="openshift"></a> Running test on Grid 4 deployed on OpenShift cluster
-
--   You don't need browsers nor WebDrivers set up on your PC.
--   Have repo cloned and set up.
--   Have Grid running on accessible (to you) URL. Don't host it publicly.
--   Tests on connected nodes can run on any site, not just from domain you set up for the router.
--   Add Grid URL to REMOTE_ADDR, either in `setEnvVars.js`, `package.json` or directly in terminal, same for following envs.
--   Set LOCATION="remote".
--   Set ENVIRO to whichever instance you want to test. `package.json` has examples.
--   Set WEBDRIVER to whichever node you deployed.
--   Set UI="headless".
--   Add --maxWorkers=`number` flag when running tests. `number` indicates number of worker nodes you set up. Less than maximum if you want more stable tests (claim is unproven (but tested), in theory it _might_ be like that). Testing says that when they start failing do to setup, just a few will fail and not pull down your whole testrun.
-
-```zsh
-yarn jest --maxWorkers=4 partOfANameOfTest(s)(suites)
-```

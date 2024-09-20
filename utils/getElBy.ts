@@ -5,6 +5,7 @@ export default {
     Class,
     XPath,
     Css,
+    TestID,
 };
 
 /**
@@ -65,6 +66,22 @@ async function Class(driver: WebDriver, ttl: number, className: string): Promise
 async function Css(driver: WebDriver, ttl: number, cssOrTag: string): Promise<WebElement> {
     try {
         const _el: WebElement = await driver.wait(until.elementLocated(By.css(cssOrTag)), ttl);
+        return _el;
+    } catch {
+        return null;
+    }
+}
+
+/**
+ * Waits until element is located on page by ID and returns first found, if found
+ * @param driver
+ * @param ttl time-to-live, in ms
+ * @param testid element ID by which element can be found
+ * @returns first WebElement located by data-testid or null if not located
+ */
+async function TestID(driver: WebDriver, ttl: number, testid: string): Promise<WebElement> {
+    try {
+        const _el: WebElement = await Css(driver, ttl, `*[data-testid="${testid}"]`);
         return _el;
     } catch {
         return null;

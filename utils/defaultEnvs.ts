@@ -1,7 +1,7 @@
-const ENVIRONMENT_SUBDOMAIN: string = process.env.ENVIRO;
+const ENVIRONMENT_SUBDOMAIN: string = process.env.ENVIRO; // =https://*, preceding part of the address
 
 //**Used in builder.ts */
-export const ENV_ADDRESS: string = ENVIRONMENT_SUBDOMAIN + "domain.tld"; // =https://*, preceding part of the address
+export const ENV_ADDRESS: string = ENVIRONMENT_SUBDOMAIN + "domain.tld/"; // =https://www.domain.tld/, root path on site's URL
 
 // Address of a grid router
 export const ENV_GRID_ROUTER_ADDRESS: string = process.env.ROUTER_ADDR; // =routerURL, URL of a Selenium router
